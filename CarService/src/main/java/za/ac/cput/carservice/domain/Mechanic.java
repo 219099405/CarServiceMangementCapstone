@@ -1,4 +1,4 @@
-package com.example.domain.mechanic;
+package za.ac.cput.carservice.domain;
 
 import jakarta.persistence.*;
 import java.util.Objects;
