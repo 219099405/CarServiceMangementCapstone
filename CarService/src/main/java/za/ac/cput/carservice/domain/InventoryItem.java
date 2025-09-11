@@ -70,6 +70,17 @@ public class InventoryItem {
             this.lowStock = lowStock;
             return this;
         }
+
+        public InventoryItem.Builder copy(InventoryItem inventoryItem) {
+            this.itemId=inventoryItem.itemId;
+            this.itemName=inventoryItem.itemName;
+            this.quantity=inventoryItem.quantity;
+            this.price=inventoryItem.price;
+            this.lowStock=inventoryItem.lowStock;
+            return this;
+        }
+
+
         public InventoryItem build() {
             return new InventoryItem(this);
         }

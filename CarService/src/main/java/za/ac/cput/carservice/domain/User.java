@@ -18,6 +18,15 @@ public class User {
     public User() {
     }
 
+    private User(Builder builder) {
+        this.Userid = builder.Userid;
+        this.Username = builder.Username;
+        this.Password = builder.Password;
+        this.Email = builder.Email;
+        this.Phone = builder.Phone;
+        this.Role = builder.Role;
+    }
+
     public int getUserid() {
         return Userid;
     }
@@ -42,14 +51,55 @@ public class User {
         return Role;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + getUserid() + ","
-                + "username=" + getUsername() + ","
-                + "password=" + getPassword() + ","
-                + "email=" + getEmail() + ","
-                + "phone=" + getPhone() + ","
-                + "role=" + getRole() + "}";
+
+    public static class Builder {
+        private int Userid;
+        private String Username;
+        private String Password;
+        private String Email;
+        private String Phone;
+        private String Role;
+
+
+        public Builder setUserid(int Userid) {
+            this.Userid = Userid;
+            return this;
+        }
+
+        public Builder setUsername(String Username) {
+            this.Username = Username;
+            return this;
+        }
+
+        public Builder setPassword(String Password) {
+            this.Password = Password;
+            return this;
+        }
+
+        public Builder setEmail(String Email) {
+            this.Email = Email;
+            return this;
+        }
+
+        public Builder setPhone(String Phone) {
+
+            this.Phone = Phone;
+            return this;
+        }
+
+        public Builder setRole(String Role) {
+            this.Role = Role;
+            return this;
+        }
+        public User.Builder copy(User user) {
+            this.Userid = user.Userid;
+            this.Username = user.Username;
+            this.Password = user.Password;
+            this.Email = user.Email;
+            this.Phone = user.Phone;
+            this.Role = user.Role;
+            return this;
+        }
+        public User build() {return new User(this);}
+        }
     }
-}
