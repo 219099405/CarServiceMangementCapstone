@@ -1,18 +1,17 @@
 package za.ac.cput.carservice.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "bookings")
 public class Booking {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int bookingId;
-    private int customerId;
-    private int vehicleId;
+    private Long bookingId;
+    private Long customerId;
+    private Long vehicleId;
     private LocalDate scheduledDate;
     private String status;
 
@@ -28,15 +27,15 @@ public class Booking {
         this.status = builder.status;
     }
 
-    public int getBookingId(){
+    public Long getBookingId(){
         return bookingId;
     }
 
-    public int getCustomerId(){
+    public Long getCustomerId(){
         return customerId;
     }
 
-    public int getVehicleId(){
+    public Long getVehicleId(){
         return vehicleId;
     }
 
@@ -59,23 +58,23 @@ public class Booking {
     }
 
     public static class Builder {
-        private int bookingId;
-        private int customerId;
-        private int vehicleId;
+        private Long bookingId;
+        private Long customerId;
+        private Long vehicleId;
         private LocalDate scheduledDate;
         private String status;
 
-        public Builder setBookingId(int bookingId){
+        public Builder setBookingId(Long bookingId){
             this.bookingId = bookingId;
             return this;
         }
 
-        public Builder setCustomerId(int customerId){
+        public Builder setCustomerId(Long customerId){
             this.customerId = customerId;
             return this;
         }
 
-        public Builder setVehicleId(int vehicleId){
+        public Builder setVehicleId(Long vehicleId){
             this.vehicleId = vehicleId;
             return this;
         }

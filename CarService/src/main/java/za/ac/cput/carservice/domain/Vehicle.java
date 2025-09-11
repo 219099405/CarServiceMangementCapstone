@@ -1,15 +1,15 @@
 package za.ac.cput.carservice.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "vehicles")
 public class Vehicle {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int vehicleId;
+
+    private Long vehicleId;
     private String make;
     private String model;
     private int year;
@@ -27,7 +27,7 @@ public class Vehicle {
         this.licensePlate = builder.licensePlate;
     }
 
-    public int getVehicleId() {
+    public Long getVehicleId() {
         return vehicleId;
     }
 
@@ -58,13 +58,13 @@ public class Vehicle {
     }
 
     public static class Builder {
-        private int vehicleId;
+        private Long vehicleId;
         private String make;
         private String model;
         private int year;
         private String licensePlate;
 
-        public Builder setVehicleId(int vehicleId) {
+        public Builder setVehicleId(Long vehicleId) {
             this.vehicleId = vehicleId;
             return this;
         }
