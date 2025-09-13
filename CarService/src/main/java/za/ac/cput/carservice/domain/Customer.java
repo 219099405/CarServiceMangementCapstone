@@ -1,29 +1,22 @@
 package za.ac.cput.carservice.domain;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 import java.util.Objects;
 
 @Entity
-@Table(name = "customers")
-public class Customer {
+public class Customer extends User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long customerId;
-
-    @Column(nullable = false)
     private String address;
 
     protected Customer() {
-        // Required by JPA
+        super();
     }
 
     private Customer(Builder builder) {
-        this.customerId = builder.customerId;
+        super(builder.userBuilder);
         this.address = builder.address;
     }
 
-    public Long getCustomerId() { return customerId; }
     public String getAddress() { return address; }
 
     public void updateAddress(String newAddress) {
@@ -37,22 +30,22 @@ public class Customer {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Customer)) return false;
+        if (!super.equals(o)) return false;
         Customer customer = (Customer) o;
-        return Objects.equals(customerId, customer.customerId);
+        return Objects.equals(address, customer.address);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(customerId);
+        return Objects.hash(super.hashCode(), address);
     }
 
     public static class Builder {
-        private Long customerId;
+        private User.Builder userBuilder;
         private String address;
 
-        public Builder customerId(Long customerId) {
-            this.customerId = customerId;
-            return this;
+        public Builder(User.Builder userBuilder) {
+            this.userBuilder = userBuilder;
         }
 
         public Builder address(String address) {

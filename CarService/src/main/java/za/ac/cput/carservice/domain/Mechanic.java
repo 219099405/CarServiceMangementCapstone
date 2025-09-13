@@ -1,33 +1,24 @@
 package za.ac.cput.carservice.domain;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 import java.util.Objects;
 
 @Entity
-@Table(name = "mechanics")
-public class Mechanic {
+public class Mechanic extends User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long mechanicId;
-
-    @Column(nullable = false)
     private String specialization;
-
-    @Column
     private String contactInfo;
 
     protected Mechanic() {
-        // Required by JPA
+        super();
     }
 
     private Mechanic(Builder builder) {
-        this.mechanicId = builder.mechanicId;
+        super(builder.userBuilder);
         this.specialization = builder.specialization;
         this.contactInfo = builder.contactInfo;
     }
 
-    public Long getMechanicId() { return mechanicId; }
     public String getSpecialization() { return specialization; }
     public String getContactInfo() { return contactInfo; }
 
@@ -42,23 +33,24 @@ public class Mechanic {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Mechanic)) return false;
+        if (!super.equals(o)) return false;
         Mechanic mechanic = (Mechanic) o;
-        return Objects.equals(mechanicId, mechanic.mechanicId);
+        return Objects.equals(specialization, mechanic.specialization) &&
+                Objects.equals(contactInfo, mechanic.contactInfo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mechanicId);
+        return Objects.hash(super.hashCode(), specialization, contactInfo);
     }
 
     public static class Builder {
-        private Long mechanicId;
+        private User.Builder userBuilder;
         private String specialization;
         private String contactInfo;
 
-        public Builder mechanicId(Long mechanicId) {
-            this.mechanicId = mechanicId;
-            return this;
+        public Builder(User.Builder userBuilder) {
+            this.userBuilder = userBuilder;
         }
 
         public Builder specialization(String specialization) {

@@ -1,10 +1,9 @@
 package za.ac.cput.carservice.domain;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+
+import jakarta.persistence.*;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED) // each subclass has its own table
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,10 +14,10 @@ public class User {
     private String Phone;
     private String Role;
 
-    public User() {
+    protected User() {
     }
 
-    private User(Builder builder) {
+    protected User(Builder builder) {
         this.Userid = builder.Userid;
         this.Username = builder.Username;
         this.Password = builder.Password;
@@ -27,30 +26,12 @@ public class User {
         this.Role = builder.Role;
     }
 
-    public int getUserid() {
-        return Userid;
-    }
-
-    public String getUsername() {
-        return Username;
-    }
-
-    public String getPassword() {
-        return Password;
-    }
-
-    public String getEmail() {
-        return Email;
-    }
-
-    public String getPhone() {
-        return Phone;
-    }
-
-    public String getRole() {
-        return Role;
-    }
-
+    public int getUserid() { return Userid; }
+    public String getUsername() { return Username; }
+    public String getPassword() { return Password; }
+    public String getEmail() { return Email; }
+    public String getPhone() { return Phone; }
+    public String getRole() { return Role; }
 
     public static class Builder {
         private int Userid;
@@ -59,7 +40,6 @@ public class User {
         private String Email;
         private String Phone;
         private String Role;
-
 
         public Builder setUserid(int Userid) {
             this.Userid = Userid;
@@ -82,7 +62,6 @@ public class User {
         }
 
         public Builder setPhone(String Phone) {
-
             this.Phone = Phone;
             return this;
         }
@@ -91,7 +70,8 @@ public class User {
             this.Role = Role;
             return this;
         }
-        public User.Builder copy(User user) {
+
+        public Builder copy(User user) {
             this.Userid = user.Userid;
             this.Username = user.Username;
             this.Password = user.Password;
@@ -100,6 +80,7 @@ public class User {
             this.Role = user.Role;
             return this;
         }
-        public User build() {return new User(this);}
-        }
+
+        public User build() { return new User(this); }
     }
+}
